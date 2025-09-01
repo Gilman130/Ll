@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>চিঠি দিবসের শুভেচ্ছা</title>
+  <style>
+    body {
+      font-family: 'Noto Serif Bengali', serif;
+      margin: 0;
+      padding: 0;
+      background: #fff8f0;
+      color: #333;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 30px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      display: none; /* ডিফল্টে লুকানো থাকবে */
+    }
+    h1 {
+      text-align: center;
+      color: #b45f06;
+      font-size: 32px;
+    }
+    p {
+      font-size: 18px;
+      margin: 15px 0;
+    }
+    .highlight {
+      background: #fff3cd;
+      padding: 10px;
+      border-left: 4px solid #ff9800;
+      border-radius: 6px;
+    }
+    .footer {
+      margin-top: 30px;
+      text-align: center;
+      font-style: italic;
+      color: #555;
+    }
+    .actions {
+      margin-top: 25px;
+      text-align: center;
+    }
+    button {
+      background: #b45f06;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      margin: 5px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #8a4504;
+    }
+    .password-box {
+      text-align: center;
+      margin-top: 100px;
+    }
+    .password-box input {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #aaa;
+      border-radius: 6px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- পাসওয়ার্ড ইনপুট -->
+  <div class="password-box" id="passwordBox">
+    <h2>🔒 চিঠি পড়তে পাসওয়ার্ড দিন</h2>
+    <input type="password" id="passwordInput" placeholder="পাসওয়ার্ড লিখুন">
+    <button onclick="checkPassword()">সাবমিট</button>
+  </div>
+
+  <!-- আসল চিঠি -->
+  <div class="container" id="letterContainer">
+    <h1>📜 শুভ চিঠি দিবস 📜</h1>
+    <p>প্রিয় জাফিয়া জিম,</p>
+    <p>চিঠি হলো হৃদয়ের সেতুবন্ধন। কখনো আনন্দের বার্তা, কখনো আবার দুঃখের কথা প্রতিটি চিঠিই ধারণ করে একেকটি গল্প, একেকটি অনুভূতি।</p>
+    <p class="highlight">আগে আমরা কাগজে লিখে সেই ভালোবাসা পাঠাতাম। এখন ডিজিটালি সেই একই আবেগ পৌঁছে যাচ্ছে প্রিয়জনের কাছে।</p>
+    <p>চিঠি দিবসে আমাদের প্রত্যেকের মনের কথা হোক আরও কাছের, আরও আন্তরিক। ভালোবাসা, বন্ধুত্ব আর সম্পর্কের এই চিরন্তন মাধ্যম বেঁচে থাকুক যুগের পর যুগ।</p>
+    
+    <div class="actions">
+      <button onclick="copyText()">কপি করুন</button>
+      <button onclick="shareText()">শেয়ার করুন</button>
+      <button onclick="shareFacebook()">📘 ফেসবুকে শেয়ার</button>
+      <button onclick="shareInstagram()">📸 ইনস্টাগ্রামে শেয়ার</button>
+    </div>
+
+    <div class="footer">— আন্তরিক শুভেচ্ছা </div>
+  </div>
+
+  <script>
+    // পাসওয়ার্ড চেক সিস্টেম
+    const correctPassword = "jim"; // এখানে নিজের পছন্দমতো পাসওয়ার্ড সেট করো
+    function checkPassword() {
+      const input = document.getElementById("passwordInput").value;
+      if (input === correctPassword) {
+        document.getElementById("passwordBox").style.display = "none";
+        document.getElementById("letterContainer").style.display = "block";
+      } else {
+        alert("❌ ভুল পাসওয়ার্ড!");
+      }
+    }
+
+    // কপি ফাংশন
+    function copyText() {
+      navigator.clipboard.writeText(document.getElementById("letterContainer").innerText);
+      alert('চিঠির বার্তা কপি হয়েছে ✅');
+    }
+
+    // ওয়েব শেয়ার API
+    function shareText() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'চিঠি দিবসের শুভেচ্ছা',
+          text: document.getElementById("letterContainer").innerText,
+          url: window.location.href
+        });
+      } else {
+        alert('আপনার ব্রাউজার শেয়ার সাপোর্ট করে না।');
+      }
+    }
+
+    // Facebook শেয়ার
+    function shareFacebook() {
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent("চিঠি দিবসের শুভেচ্ছা ✉️");
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank');
+    }
+
+    // Instagram শেয়ার (ইনস্টাগ্রাম ওয়েব শেয়ার লিঙ্ক নেই, শুধু ওপেন করবে)
+    function shareInstagram() {
+      alert("Instagram সরাসরি লিঙ্ক শেয়ার সাপোর্ট করে না। স্ক্রিনশট নিয়ে Instagram-এ পোস্ট করুন 📸");
+      window.open("https://www.instagram.com/", '_blank');
+    }
+  </script>
+</body>
+</html>
